@@ -8,10 +8,12 @@ export default class View {
   drawBoard (board) {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
-        if (board[x][y].isBomb) {
-          this._drawRectangle(x, y, 'black')
-        } else {
+        if (board[x][y].revealed && board[x][y].isBomb) {
+          this._drawRectangle(x, y, '#333')
+        } else if (board[x][y].revealed && !board[x][y].isBomb) {
           this._drawRectangle(x, y, 'white')
+        } else {
+          this._drawRectangle(x, y, 'black')
         }
       }
     }
