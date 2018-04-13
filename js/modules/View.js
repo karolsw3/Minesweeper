@@ -15,8 +15,16 @@ export default class View {
         } else {
           this._drawRectangle(x, y, 'black')
         }
+        this._drawText(x, y, board[x][y].counter)
       }
     }
+  }
+
+  _drawText (x, y, text) {
+    this.context.font = '14px Arial'
+    this.context.fillStyle = 'red'
+    this.context.textAlign = 'center'
+    this.context.fillText(text, x * this.tileWidth + this.tileWidth / 2, y * this.tileWidth + this.tileWidth / 1.3)
   }
 
   _drawRectangle (x, y, color) {
