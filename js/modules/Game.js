@@ -16,7 +16,7 @@ export default class Game {
 
   init () {
     this.score = 0
-    this._placeBombs(10)
+    this._placeBombs(50)
     this._drawBoard()
 
     // Events
@@ -27,8 +27,32 @@ export default class Game {
     this.mouseX = Math.floor((e.x - this.view.canvas.offsetLeft) / this.options.board.tileWidth)
     this.mouseY = Math.floor((e.y - this.view.canvas.offsetTop + window.pageYOffset) / this.options.board.tileWidth)
 
-    this.board[this.mouseX][this.mouseY].revealed = true
+    let clickedCell = this.board[this.mouseX][this.mouseY]
+    clickedCell.revealed = true
+    if (!clickedCell.isBomb) {
+      this._revealNeighbours(this.mouseX, this.mouseY)
+    }
+
     this._drawBoard()
+  }
+
+  _revealNeighbours (x, y) {
+    for (let i = -1; i < 2; i++) {
+      for (let j = -1; j < 2; j++) {
+        try {
+          let neighbour = this.board[x + i][y + j]
+          if (neighbour.isBomb) {
+            this.board[x][y].counter++
+          }
+          if (!((i === -1 && j === -1) || (i === 1 && j === 1) || (i === -1 && j === 1) || (i === 1 && j === -1))) {
+            if (!neighbour.isBomb && !neighbour.revealed) {
+              neighbour.revealed = true
+              this._revealNeighbours(x + i, y + j)
+            }
+          }
+        } catch (e) {}
+      }
+    }
   }
 
   _placeBombs (chancesOfBomb) {
