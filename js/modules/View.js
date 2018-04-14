@@ -11,12 +11,12 @@ export default class View {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
         if (board[x][y].revealed && board[x][y].isBomb) {
-          this._drawRectangle(x, y, 'white')
+          this._drawRectangle(x, y, this.options.tileColor)
           this._drawText(x, y, '💣')
         } else if (board[x][y].revealed && !board[x][y].isBomb) {
-          this._drawRectangle(x, y, 'white')
+          this._drawRectangle(x, y, this.options.tileColor)
         } else {
-          this._drawRectangle(x, y, '#ddd')
+          this._drawRectangle(x, y, this.options.backgroundColor)
         }
         if (board[x][y].counter > 0) {
           this._drawText(x, y, board[x][y].counter)
@@ -48,17 +48,19 @@ export default class View {
 
   _drawText (x, y, text) {
     this.context.font = 0.7 * this.tileWidth + 'px Arial'
-    this.context.fillStyle = 'red'
+    this.context.fillStyle = this.options.textColor
     this.context.textAlign = 'center'
     this.context.fillText(text, x * this.tileWidth + this.tileWidth / 2, y * this.tileWidth + this.tileWidth / 1.3)
   }
 
   _drawRectangle (x, y, color) {
-    this.context.strokeStyle = '#eee'
+    this.context.strokeStyle = this.options.borderColor
     this.context.fillStyle = color
     this.context.beginPath()
     this.context.rect(x * this.tileWidth, y * this.tileWidth, this.tileWidth, this.tileWidth)
     this.context.fill()
-    this.context.stroke()
+    if (this.options.border) {
+      this.context.stroke()
+    }
   }
 }

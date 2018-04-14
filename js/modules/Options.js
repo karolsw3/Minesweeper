@@ -3,14 +3,12 @@
  */
 export default class Options {
   constructor () {
-    this.board = {
-      sizeX: 20,
-      sizeY: 20
-    }
-    this.theme = {
-      background: 'black',
-      tile: '#333',
-      border: false
-    }
+    this.sizeX = 20
+    this.sizeY = 20
+    this.backgroundColor = 'white'
+    this.tileColor = '#eee'
+    this.border = true
+    this.borderColor = '#aaa'
+    this.textColor = 'red'
   }
 }

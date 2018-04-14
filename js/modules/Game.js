@@ -5,8 +5,8 @@ import View from './View.js'
 export default class Game {
   constructor () {
     this.options = new Options()
-    this.view = new View(this.options.board)
-    this.board = this._createMatrix(this.options.board.sizeX, this.options.board.sizeY)
+    this.view = new View(this.options)
+    this.board = this._createMatrix(this.options.sizeX, this.options.sizeY)
     this.score = 0
     this.mouseX = 0
     this.mouseY = 0
@@ -27,8 +27,8 @@ export default class Game {
       e.preventDefault()
     }
     this.buttonNewGame.onclick = () => {
-      this.options.board.sizeX = parseInt(document.getElementById('input__sizeX').value)
-      this.options.board.sizeY = parseInt(document.getElementById('input__sizeY').value)
+      this.options.sizeX = parseInt(document.getElementById('input__sizeX').value)
+      this.options.sizeY = parseInt(document.getElementById('input__sizeY').value)
       this._reset()
     }
   }
@@ -36,8 +36,8 @@ export default class Game {
   // Set all default variables to their default values
   _reset () {
     this.isGameOver = false
-    this.board = this._createMatrix(this.options.board.sizeX, this.options.board.sizeY)
-    this.view = new View(this.options.board)
+    this.board = this._createMatrix(this.options.sizeX, this.options.sizeY)
+    this.view = new View(this.options)
     this.score = 0
     this.view.resizeCanvas()
     this._placeBombs(10)
