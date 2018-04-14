@@ -10,34 +10,54 @@ export default class Game {
     this.score = 0
     this.mouseX = 0
     this.mouseY = 0
+    this.isGameOver = false
+
+    // Buttons
+    this.buttonNewGame = document.getElementById('button__newGame')
 
     this._mouseClicked = this._mouseClicked.bind(this)
   }
 
+  // Initialize the game
   init () {
-    this.score = 0
-    this._placeBombs(10)
-    this._drawBoard()
-
+    this._reset()
     // Events
     this.view.canvas.addEventListener('mousedown', e => this._mouseClicked(e), false)
     this.view.canvas.oncontextmenu = (e) => {
-      e.preventDefault();
-    };
+      e.preventDefault()
+    }
+    this.buttonNewGame.onclick = () => {
+      this.options.board.sizeX = parseInt(document.getElementById('input__sizeX').value)
+      this.options.board.sizeY = parseInt(document.getElementById('input__sizeY').value)
+      this._reset()
+    }
+  }
+
+  // Set all default variables to their default values
+  _reset () {
+    this.isGameOver = false
+    this.board = this._createMatrix(this.options.board.sizeX, this.options.board.sizeY)
+    this.view = new View(this.options.board)
+    this.score = 0
+    this.view.resizeCanvas()
+    this._placeBombs(10)
+    this._drawBoard()
   }
 
   _mouseClicked (e) {
-    this.mouseX = Math.floor((e.x - this.view.canvas.offsetLeft) / this.options.board.tileWidth)
-    this.mouseY = Math.floor((e.y - this.view.canvas.offsetTop + window.pageYOffset) / this.options.board.tileWidth)
+    this.mouseX = Math.floor((e.x - this.view.canvas.offsetLeft) / this.view.tileWidth)
+    this.mouseY = Math.floor((e.y - this.view.canvas.offsetTop + window.pageYOffset) / this.view.tileWidth)
 
     let clickedCell = this.board[this.mouseX][this.mouseY]
-    if (e.which === 1) { // Left button clicked
+    if (e.which === 1 && !this.isGameOver) { // Left button clicked
       clickedCell.revealed = true
       if (!clickedCell.isBomb) {
         this._revealNeighbours(this.mouseX, this.mouseY)
+      } else {
+        this.isGameOver = true
       }
-    } else if (e.which === 3) { // Right button clicked
-      this.board[this.mouseX][this.mouseY].flagged = true
+    } else if (e.which === 3 && !this.isGameOver) { // Right button clicked
+      clickedCell.flagged = !clickedCell.flagged
     }
     this._drawBoard()
   }

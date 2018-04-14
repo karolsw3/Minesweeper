@@ -1,3 +1,48 @@
 html, body {
   margin: 0;
 }
+
+input, button {
+  padding: 9px 12px;
+  color: #333;
+  border: 1px solid #eee;
+  background: white;
+  box-sizing: border-box;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.input__mini {
+  width: 40px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.5;
+}
+
+.game {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.options {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background: rgb(243, 243, 243);
+  padding: 5px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}

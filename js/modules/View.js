@@ -1,15 +1,18 @@
 export default class View {
   constructor (options) {
     this.canvas = document.getElementById('canvas')
+    this.canvasWidth = 600
     this.context = this.canvas.getContext('2d')
-    this.tileWidth = options.tileWidth
+    this.tileWidth = this.canvas.width / options.sizeX
+    this.options = options
   }
 
   drawBoard (board) {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
         if (board[x][y].revealed && board[x][y].isBomb) {
-          this._drawRectangle(x, y, '#333')
+          this._drawRectangle(x, y, 'white')
+          this._drawText(x, y, '💣')
         } else if (board[x][y].revealed && !board[x][y].isBomb) {
           this._drawRectangle(x, y, 'white')
         } else {
@@ -26,8 +29,25 @@ export default class View {
     }
   }
 
+  resizeCanvas () {
+    let width = 600
+    let height = 600
+
+    if (this.options.sizeX > this.options.sizeY) {
+      height = (600 * (this.options.sizeY / this.options.sizeX))
+    } else {
+      width = (600 * (this.options.sizeX / this.options.sizeY))
+    }
+
+    this.canvas.style.width = width + 'px'
+    this.canvas.style.height = height + 'px'
+    this.canvas.width = width
+    this.canvas.height = height
+    this.tileWidth = this.canvas.width / this.options.sizeX
+  }
+
   _drawText (x, y, text) {
-    this.context.font = '14px Arial'
+    this.context.font = 0.7 * this.tileWidth + 'px Arial'
     this.context.fillStyle = 'red'
     this.context.textAlign = 'center'
     this.context.fillText(text, x * this.tileWidth + this.tileWidth / 2, y * this.tileWidth + this.tileWidth / 1.3)

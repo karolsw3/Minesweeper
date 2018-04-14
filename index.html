@@ -2,10 +2,17 @@
   <head>
     <meta charset="UTF-8">
     <title>ES6 Minesweeper</title>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="game">
-      <canvas id="canvas" width="400" height="400"></canvas>
+      <div class="options">
+        <p>Board size: </p>
+        <input id="input__sizeX" class="input__mini" size="1" maxlength="2" placeholder="x">
+        <input id="input__sizeY" class="input__mini" size="1" maxlength="2" placeholder="y">
+        <button id="button__newGame">New Game</button>
+      </div>
+      <canvas id="canvas" width="600" height="600"></canvas>
     </div>
     <script src="js/index.js" type="module"></script>
   </body>
