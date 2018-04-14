@@ -13,10 +13,14 @@ export default class View {
         } else if (board[x][y].revealed && !board[x][y].isBomb) {
           this._drawRectangle(x, y, 'white')
         } else {
-          this._drawRectangle(x, y, 'black')
+          this._drawRectangle(x, y, '#ddd')
         }
         if (board[x][y].counter > 0) {
           this._drawText(x, y, board[x][y].counter)
+        }
+
+        if (board[x][y].flagged && !board[x][y].revealed) {
+          this._drawText(x, y, '🚩')
         }
       }
     }
@@ -30,7 +34,7 @@ export default class View {
   }
 
   _drawRectangle (x, y, color) {
-    this.context.strokeStyle = 'red'
+    this.context.strokeStyle = '#eee'
     this.context.fillStyle = color
     this.context.beginPath()
     this.context.rect(x * this.tileWidth, y * this.tileWidth, this.tileWidth, this.tileWidth)

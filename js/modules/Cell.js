@@ -3,5 +3,6 @@ export default class Cell {
     this.isBomb = false
     this.counter = 0
     this.revealed = false
+    this.flagged = false
   }
 }

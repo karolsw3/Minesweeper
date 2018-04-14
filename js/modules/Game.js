@@ -20,7 +20,10 @@ export default class Game {
     this._drawBoard()
 
     // Events
-    this.view.canvas.addEventListener('click', e => this._mouseClicked(e))
+    this.view.canvas.addEventListener('mousedown', e => this._mouseClicked(e), false)
+    this.view.canvas.oncontextmenu = (e) => {
+      e.preventDefault();
+    };
   }
 
   _mouseClicked (e) {
@@ -28,11 +31,14 @@ export default class Game {
     this.mouseY = Math.floor((e.y - this.view.canvas.offsetTop + window.pageYOffset) / this.options.board.tileWidth)
 
     let clickedCell = this.board[this.mouseX][this.mouseY]
-    clickedCell.revealed = true
-    if (!clickedCell.isBomb) {
-      this._revealNeighbours(this.mouseX, this.mouseY)
+    if (e.which === 1) { // Left button clicked
+      clickedCell.revealed = true
+      if (!clickedCell.isBomb) {
+        this._revealNeighbours(this.mouseX, this.mouseY)
+      }
+    } else if (e.which === 3) { // Right button clicked
+      this.board[this.mouseX][this.mouseY].flagged = true
     }
-
     this._drawBoard()
   }
 
