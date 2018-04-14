@@ -15,7 +15,9 @@ export default class View {
         } else {
           this._drawRectangle(x, y, 'black')
         }
-        this._drawText(x, y, board[x][y].counter)
+        if (board[x][y].counter > 0) {
+          this._drawText(x, y, board[x][y].counter)
+        }
       }
     }
   }

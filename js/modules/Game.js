@@ -16,7 +16,7 @@ export default class Game {
 
   init () {
     this.score = 0
-    this._placeBombs(50)
+    this._placeBombs(10)
     this._drawBoard()
 
     // Events
@@ -37,6 +37,9 @@ export default class Game {
   }
 
   _revealNeighbours (x, y) {
+    this.board[x][y].counter = 0
+
+    // For first check how many bombs are neighbouring the cell
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
         try {
@@ -44,8 +47,17 @@ export default class Game {
           if (neighbour.isBomb) {
             this.board[x][y].counter++
           }
+        } catch (e) {}
+      }
+    }
+    // Then if there are no bombs near the cell = reveal it
+    for (let i = -1; i < 2; i++) {
+      for (let j = -1; j < 2; j++) {
+        try {
+          let neighbour = this.board[x + i][y + j]
+          // Avoid corners
           if (!((i === -1 && j === -1) || (i === 1 && j === 1) || (i === -1 && j === 1) || (i === 1 && j === -1))) {
-            if (!neighbour.isBomb && !neighbour.revealed) {
+            if (!neighbour.isBomb && !neighbour.revealed && this.board[x][y].counter === 0) {
               neighbour.revealed = true
               this._revealNeighbours(x + i, y + j)
             }
