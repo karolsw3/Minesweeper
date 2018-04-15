@@ -11,6 +11,7 @@ export default class Game {
     this.mouseX = 0
     this.mouseY = 0
     this.isGameOver = false
+    this.isGameWon = false
 
     this._mouseClicked = this._mouseClicked.bind(this)
   }
@@ -24,11 +25,16 @@ export default class Game {
       e.preventDefault()
     }
     this.view.buttonNewGame.onclick = () => {
-      this.view.optionPanel.style.display = 'none'
+      this.view.optionsPanel.style.display = 'none'
       this.options.sizeX = parseInt(document.getElementById('input__sizeX').value)
       this.options.sizeY = parseInt(document.getElementById('input__sizeY').value)
       this.options.bombPercentage = parseInt(document.getElementById('input__bombPercentage').value)
       this._reset()
+    }
+
+    this.view.buttonHideResult.onclick = () => {
+      this.view.resultPanel.style.display = 'none'
+      this.view.optionsPanel.style.display = 'block'
     }
   }
 
@@ -52,6 +58,7 @@ export default class Game {
       clickedCell.revealed = true
       if (!clickedCell.isBomb) {
         this._revealNeighbours(this.mouseX, this.mouseY)
+        this.score += 8
       } else {
         this.isGameOver = true
         this._onGameOver()
@@ -111,7 +118,12 @@ export default class Game {
   }
 
   _onGameOver () {
-    this.view.optionPanel.style.display = 'block'
+    this.view.resultPanel.style.display = 'block'
+    if (this.isGameWon) {
+      document.getElementById('output__result').innerText = 'You won! 😀 Score: ' + this.score
+    } else {
+      document.getElementById('output__result').innerText = 'You lost! 😰 Score: ' + this.score
+    }
   }
 
   // Create matrix with specified width and height and fill it with new Cells

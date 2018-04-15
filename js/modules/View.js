@@ -1,8 +1,10 @@
 export default class View {
   constructor (options) {
     this.canvas = document.getElementById('canvas')
-    this.optionPanel = document.getElementById('options')
+    this.optionsPanel = document.getElementById('options')
+    this.resultPanel = document.getElementById('result')
     this.buttonNewGame = document.getElementById('button__newGame')
+    this.buttonHideResult = document.getElementById('button__hideResult')
 
     this.canvasWidth = 600
     this.context = this.canvas.getContext('2d')

@@ -21,7 +21,7 @@ input, button {
   display: inline-block;
 }
 
-.options {
+.menu {
   padding: 10px;
   width: 300px;
   position: absolute;
@@ -32,26 +32,32 @@ input, button {
   border-radius: 12px;
   background: #f6f6f6;
   transition-duration: .12s;
+  z-index: 2;
 }
 
-.options__title {
+#result {
+  display: none;
+  z-index: 3;
+}
+
+.menu__title {
   padding: 8px;
   text-align: center;
   font-size: 1.3em;
   color: rgba(0,0,0,.5);
 }
 
-.options__panel {
+.menu__panel {
   padding: 8px;
   display: grid;
   grid-template: 1fr/1fr 1fr;
 }
 
-.options__footer {
+.menu__footer {
   padding: 8px;
 }
 
-.options__button {
+.menu__button {
   margin: 0 auto;
   display: block;
   font-family: 'Lato';
@@ -61,24 +67,24 @@ input, button {
   transition-duration: 0.12s;
 }
 
-.options__button:hover {
+.menu__button:hover {
   opacity: 0.8;
 }
 
-.options__inline {
+.menu__inline {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.options__option {
+.menu__option {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.options__option p {
+.menu__option p {
   color: rgba(0,0,0,0.3);
   padding: 12px 0;
   margin: 0;

@@ -7,27 +7,34 @@
   <body>
     <div class="game">
 
-      <div class="options" id="options">
-        <div class="options__title">Options</div>
-        <div class="options__panel">
-          <div class="options__option">
+      <div class="menu" id="options">
+        <div class="menu__title">Options</div>
+        <div class="menu__panel">
+          <div class="menu__option">
             <p>Board size</p>
-            <div class="options__inline">
+            <div class="menu__inline">
               <input class="input__mini" id="input__sizeX" value="20" placeholder="X" maxlength="2"/>
               <p>x</p>
               <input class="input__mini" id="input__sizeY" value="20" placeholder="Y" maxlength="2"/>
             </div>
           </div>
-          <div class="options__option">
+          <div class="menu__option">
             <p>Bomb %-tage</p>
-            <div class="options__inline">
+            <div class="menu__inline">
               <input class="input__mini" id="input__bombPercentage" value="10" maxlength="2"/>
               <p>%</p>
             </div>
           </div>
         </div>
-        <div class="options__footer">
-          <button class="options__button" id="button__newGame">Start</button>
+        <div class="menu__footer">
+          <button class="menu__button" id="button__newGame">Start</button>
+        </div>
+      </div>
+
+      <div class="menu" id="result">
+        <div class="menu__title" id="output__result">Game result</div>
+        <div class="menu__footer">
+          <button class="menu__button" id="button__hideResult">Ok</button>
         </div>
       </div>
 
