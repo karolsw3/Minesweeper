@@ -1,6 +1,9 @@
 export default class View {
   constructor (options) {
     this.canvas = document.getElementById('canvas')
+    this.optionPanel = document.getElementById('options')
+    this.buttonNewGame = document.getElementById('button__newGame')
+
     this.canvasWidth = 600
     this.context = this.canvas.getContext('2d')
     this.tileWidth = this.canvas.width / options.sizeX

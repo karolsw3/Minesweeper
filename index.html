@@ -6,12 +6,31 @@
   </head>
   <body>
     <div class="game">
-      <div class="options">
-        <p>Board size: </p>
-        <input id="input__sizeX" class="input__mini" size="1" maxlength="2" placeholder="x">
-        <input id="input__sizeY" class="input__mini" size="1" maxlength="2" placeholder="y">
-        <button id="button__newGame">New Game</button>
+
+      <div class="options" id="options">
+        <div class="options__title">Options</div>
+        <div class="options__panel">
+          <div class="options__option">
+            <p>Board size</p>
+            <div class="options__inline">
+              <input class="input__mini" id="input__sizeX" value="20" placeholder="X" maxlength="2"/>
+              <p>x</p>
+              <input class="input__mini" id="input__sizeY" value="20" placeholder="Y" maxlength="2"/>
+            </div>
+          </div>
+          <div class="options__option">
+            <p>Bomb %-tage</p>
+            <div class="options__inline">
+              <input class="input__mini" id="input__bombPercentage" value="10" maxlength="2"/>
+              <p>%</p>
+            </div>
+          </div>
+        </div>
+        <div class="options__footer">
+          <button class="options__button" id="button__newGame">Start</button>
+        </div>
       </div>
+
       <canvas id="canvas" width="600" height="600"></canvas>
     </div>
     <script src="js/index.js" type="module"></script>

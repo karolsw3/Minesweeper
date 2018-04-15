@@ -1,27 +1,87 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
 html, body {
   margin: 0;
+  font-family: 'Lato';
 }
 
 input, button {
   padding: 9px 12px;
   color: #333;
   border: 1px solid #eee;
-  background: white;
+  background: #fff;
   box-sizing: border-box;
-  margin-left: 5px;
+  margin: 0 5px;
   border-radius: 5px;
+  text-align: center;
 }
 
 .input__mini {
   width: 40px;
+  display: inline-block;
 }
 
-button {
+.options {
+  padding: 10px;
+  width: 300px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: calc(50% - 110px);
+  border-radius: 12px;
+  background: #f6f6f6;
+  transition-duration: .12s;
+}
+
+.options__title {
+  padding: 8px;
+  text-align: center;
+  font-size: 1.3em;
+  color: rgba(0,0,0,.5);
+}
+
+.options__panel {
+  padding: 8px;
+  display: grid;
+  grid-template: 1fr/1fr 1fr;
+}
+
+.options__footer {
+  padding: 8px;
+}
+
+.options__button {
+  margin: 0 auto;
+  display: block;
+  font-family: 'Lato';
+  font-size: 1em;
+  color: rgba(0,0,0,0.5);
   cursor: pointer;
+  transition-duration: 0.12s;
 }
 
-button:hover {
-  opacity: 0.5;
+.options__button:hover {
+  opacity: 0.8;
+}
+
+.options__inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options__option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.options__option p {
+  color: rgba(0,0,0,0.3);
+  padding: 12px 0;
+  margin: 0;
 }
 
 .game {
@@ -34,15 +94,3 @@ button:hover {
   margin: 0 auto;
 }
 
-.options {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 50px;
-  background: rgb(243, 243, 243);
-  padding: 5px 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-}

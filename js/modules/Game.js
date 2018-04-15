@@ -12,9 +12,6 @@ export default class Game {
     this.mouseY = 0
     this.isGameOver = false
 
-    // Buttons
-    this.buttonNewGame = document.getElementById('button__newGame')
-
     this._mouseClicked = this._mouseClicked.bind(this)
   }
 
@@ -26,9 +23,11 @@ export default class Game {
     this.view.canvas.oncontextmenu = (e) => {
       e.preventDefault()
     }
-    this.buttonNewGame.onclick = () => {
+    this.view.buttonNewGame.onclick = () => {
+      this.view.optionPanel.style.display = 'none'
       this.options.sizeX = parseInt(document.getElementById('input__sizeX').value)
       this.options.sizeY = parseInt(document.getElementById('input__sizeY').value)
+      this.options.bombPercentage = parseInt(document.getElementById('input__bombPercentage').value)
       this._reset()
     }
   }
@@ -40,7 +39,7 @@ export default class Game {
     this.view = new View(this.options)
     this.score = 0
     this.view.resizeCanvas()
-    this._placeBombs(10)
+    this._placeBombs(this.options.bombPercentage)
     this._drawBoard()
   }
 
@@ -55,6 +54,7 @@ export default class Game {
         this._revealNeighbours(this.mouseX, this.mouseY)
       } else {
         this.isGameOver = true
+        this._onGameOver()
       }
     } else if (e.which === 3 && !this.isGameOver) { // Right button clicked
       clickedCell.flagged = !clickedCell.flagged
@@ -93,13 +93,13 @@ export default class Game {
     }
   }
 
-  _placeBombs (chancesOfBomb) {
-    if (chancesOfBomb > 100 || chancesOfBomb < 0) {
-      chancesOfBomb = 40
+  _placeBombs (bombPercentage) {
+    if (bombPercentage > 100 || bombPercentage < 0) {
+      bombPercentage = 40
     }
     for (let x = 0; x < this.board.length; x++) {
       for (let y = 0; y < this.board[x].length; y++) {
-        if (Math.random() <= (chancesOfBomb / 100)) {
+        if (Math.random() <= (bombPercentage / 100)) {
           this.board[x][y].isBomb = true
         }
       }
@@ -108,6 +108,10 @@ export default class Game {
 
   _drawBoard () {
     this.view.drawBoard(this.board)
+  }
+
+  _onGameOver () {
+    this.view.optionPanel.style.display = 'block'
   }
 
   // Create matrix with specified width and height and fill it with new Cells
