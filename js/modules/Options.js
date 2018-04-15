@@ -9,7 +9,7 @@ export default class Options {
     this.backgroundColor = 'white'
     this.tileColor = '#eee'
     this.border = true
-    this.borderColor = '#aaa'
+    this.borderColor = '#ccc'
     this.textColor = 'red'
   }
 }

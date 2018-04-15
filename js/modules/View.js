@@ -10,6 +10,8 @@ export default class View {
     this.context = this.canvas.getContext('2d')
     this.tileWidth = this.canvas.width / options.sizeX
     this.options = options
+
+    this.deviceSize = window.innerWidth > window.innerHeight ? window.innerHeight * 0.8 : window.innerWidth * 0.8
   }
 
   drawBoard (board) {
@@ -35,13 +37,13 @@ export default class View {
   }
 
   resizeCanvas () {
-    let width = 600
-    let height = 600
+    let width = this.deviceSize
+    let height = this.deviceSize
 
     if (this.options.sizeX > this.options.sizeY) {
-      height = (600 * (this.options.sizeY / this.options.sizeX))
+      height = (this.deviceSize * (this.options.sizeY / this.options.sizeX))
     } else {
-      width = (600 * (this.options.sizeX / this.options.sizeY))
+      width = (this.deviceSize * (this.options.sizeX / this.options.sizeY))
     }
 
     this.canvas.style.width = width + 'px'
