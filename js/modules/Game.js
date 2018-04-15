@@ -10,6 +10,8 @@ export default class Game {
     this.score = 0
     this.mouseX = 0
     this.mouseY = 0
+    this.bombs = 0
+    this.revealedTiles = 0
     this.isGameOver = false
     this.isGameWon = false
 
@@ -44,6 +46,7 @@ export default class Game {
     this.board = this._createMatrix(this.options.sizeX, this.options.sizeY)
     this.view = new View(this.options)
     this.score = 0
+    this.revealedTiles = 0
     this.view.resizeCanvas()
     this._placeBombs(this.options.bombPercentage)
     this._drawBoard()
@@ -56,9 +59,15 @@ export default class Game {
     let clickedCell = this.board[this.mouseX][this.mouseY]
     if (e.which === 1 && !this.isGameOver) { // Left button clicked
       clickedCell.revealed = true
+      this.revealedTiles++
       if (!clickedCell.isBomb) {
         this._revealNeighbours(this.mouseX, this.mouseY)
         this.score += 8
+        if (this._checkIfGameWon()) {
+          this.isGameWon = true
+          this.isGameOver = true
+          this._onGameOver()
+        }
       } else {
         this.isGameOver = true
         this._onGameOver()
@@ -92,6 +101,7 @@ export default class Game {
           if (!((i === -1 && j === -1) || (i === 1 && j === 1) || (i === -1 && j === 1) || (i === 1 && j === -1))) {
             if (!neighbour.isBomb && !neighbour.revealed && this.board[x][y].counter === 0) {
               neighbour.revealed = true
+              this.revealedTiles++
               this._revealNeighbours(x + i, y + j)
             }
           }
@@ -101,6 +111,7 @@ export default class Game {
   }
 
   _placeBombs (bombPercentage) {
+    this.bombs = 0
     if (bombPercentage > 100 || bombPercentage < 0) {
       bombPercentage = 40
     }
@@ -108,9 +119,14 @@ export default class Game {
       for (let y = 0; y < this.board[x].length; y++) {
         if (Math.random() <= (bombPercentage / 100)) {
           this.board[x][y].isBomb = true
+          this.bombs++
         }
       }
     }
+  }
+
+  _checkIfGameWon () {
+    return this.bombs === (this.options.sizeX * this.options.sizeY - this.revealedTiles)
   }
 
   _drawBoard () {
