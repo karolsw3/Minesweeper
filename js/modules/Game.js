@@ -46,6 +46,7 @@ export default class Game {
     this.board = this._createMatrix(this.options.sizeX, this.options.sizeY)
     this.view = new View(this.options)
     this.score = 0
+    this.isGameWon = false
     this.revealedTiles = 0
     this.view.resizeCanvas()
     this._placeBombs(this.options.bombPercentage)
@@ -58,6 +59,11 @@ export default class Game {
 
     let clickedCell = this.board[this.mouseX][this.mouseY]
     if (e.which === 1 && !this.isGameOver) { // Left button clicked
+      // Make sure that player will be not given a bomb on a very start of the game
+      if (this.revealedTiles === 0) {
+        clickedCell.isBomb = false
+      }
+
       clickedCell.revealed = true
       this.revealedTiles++
       if (!clickedCell.isBomb) {
