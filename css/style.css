@@ -120,3 +120,17 @@ input, button {
   z-index: 4;
 }
 
+.footer {
+  text-align: center;
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 20px;
+	font-size: 1em;
+	color: rgba(0, 0, 0, .7);
+  z-index: 4;
+}
+
