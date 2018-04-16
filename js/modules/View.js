@@ -5,7 +5,9 @@ export default class View {
     this.resultPanel = document.getElementById('result')
     this.buttonNewGame = document.getElementById('button__newGame')
     this.buttonHideResult = document.getElementById('button__hideResult')
+    this.timer = document.getElementById('timer')
 
+    this.seconds = 0
     this.canvasWidth = 600
     this.context = this.canvas.getContext('2d')
     this.tileWidth = this.canvas.width / options.sizeX
@@ -34,6 +36,33 @@ export default class View {
         }
       }
     }
+  }
+
+  startTimer () {
+    window.INTERVAL = setInterval(() => {
+      let minutes = Math.floor(this.seconds / 60)
+      let seconds = this.seconds % 60
+
+      if (seconds < 10) {
+        seconds = '0' + seconds
+      }
+
+      if (minutes < 10) {
+        minutes = '0' + minutes
+      }
+
+      this.timer.innerText = `00:${minutes}:${seconds}`
+      this.seconds++
+    }, 1000)
+  }
+
+  stopTimer () {
+    clearInterval(window.INTERVAL)
+  }
+
+  resetTimer () {
+    this.timer.innerText = `00:00:00`
+    this.seconds = 0
   }
 
   resizeCanvas () {

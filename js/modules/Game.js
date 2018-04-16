@@ -31,6 +31,8 @@ export default class Game {
       this.options.sizeX = parseInt(document.getElementById('input__sizeX').value)
       this.options.sizeY = parseInt(document.getElementById('input__sizeY').value)
       this.options.bombPercentage = parseInt(document.getElementById('input__bombPercentage').value)
+      this.view.resetTimer()
+      this.view.startTimer()
       this._reset()
     }
 
@@ -59,7 +61,7 @@ export default class Game {
 
     let clickedCell = this.board[this.mouseX][this.mouseY]
     if (e.which === 1 && !this.isGameOver) { // Left button clicked
-      // Make sure that player will be not given a bomb on a very start of the game
+      // Make sure that player will not be given a bomb on a very start of the game
       if (this.revealedTiles === 0) {
         clickedCell.isBomb = false
       }
@@ -140,6 +142,7 @@ export default class Game {
   }
 
   _onGameOver () {
+    this.view.stopTimer()
     this.view.resultPanel.style.display = 'block'
     if (this.isGameWon) {
       document.getElementById('output__result').innerText = 'You won! 😀 Score: ' + this.score

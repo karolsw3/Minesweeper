@@ -54,7 +54,13 @@ input, button {
 }
 
 .menu__footer {
+  text-align: center;
   padding: 8px;
+}
+
+.menu__footer p {
+  font-size: 0.8em;
+  color: rgba(0,0,0,0.3);
 }
 
 .menu__button {
@@ -98,5 +104,19 @@ input, button {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+.timer {
+  text-align: center;
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 20px;
+	font-size: 2em;
+	color: rgba(0, 0, 0, .7);
+  z-index: 4;
 }
 
