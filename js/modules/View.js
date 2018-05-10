@@ -7,7 +7,7 @@ export default class View {
     this.buttonHideResult = document.getElementById('button__hideResult')
     this.timer = document.getElementById('timer')
 
-    this.seconds = 0
+    this.miliseconds = 0
     this.canvasWidth = 600
     this.context = this.canvas.getContext('2d')
     this.tileWidth = this.canvas.width / options.sizeX
@@ -40,20 +40,32 @@ export default class View {
 
   startTimer () {
     window.INTERVAL = setInterval(() => {
-      let minutes = Math.floor(this.seconds / 60)
-      let seconds = this.seconds % 60
+      let hours = Math.floor(this.miliseconds / 1000 / 60 / 60)
+      let minutes = Math.floor(this.miliseconds / 1000 / 60)
+      let seconds = Math.floor(this.miliseconds / 1000)
+      let miliseconds = this.miliseconds % 1000
 
-      if (seconds < 10) {
-        seconds = '0' + seconds
+      if (hours < 10) {
+        hours = '0' + hours
       }
 
       if (minutes < 10) {
         minutes = '0' + minutes
       }
 
-      this.timer.innerText = `00:${minutes}:${seconds}`
-      this.seconds++
-    }, 1000)
+      if (seconds < 10) {
+        seconds = '0' + seconds
+      }
+
+      if (miliseconds < 100) {
+        miliseconds = '0' + miliseconds
+      } else if (miliseconds < 10) {
+        miliseconds = '0' + miliseconds
+      }
+
+      this.timer.innerText = `${hours}:${minutes}:${seconds}:${miliseconds}`
+      this.miliseconds++
+    }, 1)
   }
 
   stopTimer () {
