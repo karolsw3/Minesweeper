@@ -64,7 +64,7 @@ export default class View {
       }
 
       this.timer.innerText = `${hours}:${minutes}:${seconds}:${miliseconds}`
-      this.miliseconds++
+      this.miliseconds += 10
     }, 1)
   }
 

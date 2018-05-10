@@ -94,14 +94,16 @@ export default class Game {
 
     for (let x = -1; x < 2; x++) {
       for (let y = -1; y < 2; y++) {
-        let cell = this.board[this.mouseX + x][this.mouseY + y]
-        if (!cell.flagged) {
-          cell.revealed = true
-          if (cell.isBomb) {
-            this.isGameOver = true
-            this._onGameOver()
+        try {
+          let cell = this.board[this.mouseX + x][this.mouseY + y]
+          if (!cell.flagged) {
+            cell.revealed = true
+            if (cell.isBomb) {
+              this.isGameOver = true
+              this._onGameOver()
+            }
           }
-        }
+        } catch (err) {}
       }
     }
     this._drawBoard()
