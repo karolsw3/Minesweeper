@@ -16,6 +16,7 @@ export default class Game {
     this.isGameWon = false
 
     this._mouseClicked = this._mouseClicked.bind(this)
+    this._mouseDoubleClicked = this._mouseDoubleClicked.bind(this)
   }
 
   // Initialize the game
@@ -23,6 +24,7 @@ export default class Game {
     this._reset()
     // Events
     this.view.canvas.addEventListener('mousedown', e => this._mouseClicked(e), false)
+    this.view.canvas.addEventListener('dblclick', e => this._mouseDoubleClicked(e), false)
     this.view.canvas.oncontextmenu = (e) => {
       e.preventDefault()
     }
@@ -82,6 +84,25 @@ export default class Game {
       }
     } else if (e.which === 3 && !this.isGameOver) { // Right button clicked
       clickedCell.flagged = !clickedCell.flagged
+    }
+    this._drawBoard()
+  }
+
+  _mouseDoubleClicked (e) {
+    this.mouseX = Math.floor((e.x - this.view.canvas.offsetLeft) / this.view.tileWidth)
+    this.mouseY = Math.floor((e.y - this.view.canvas.offsetTop + window.pageYOffset) / this.view.tileWidth)
+
+    for (let x = -1; x < 2; x++) {
+      for (let y = -1; y < 2; y++) {
+        let cell = this.board[this.mouseX + x][this.mouseY + y]
+        if (!cell.flagged) {
+          cell.revealed = true
+          if (cell.isBomb) {
+            this.isGameOver = true
+            this._onGameOver()
+          }
+        }
+      }
     }
     this._drawBoard()
   }
